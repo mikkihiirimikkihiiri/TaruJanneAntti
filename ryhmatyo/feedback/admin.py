@@ -4,7 +4,7 @@ class TopicAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields=['name']
 class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ('rating','good','bad','date')
+    list_display = ('rating','good','bad','ideas','date')
     list_filter=['topic','date']
     search_fields=['good','bad']
 
