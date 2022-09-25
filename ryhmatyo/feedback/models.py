@@ -6,11 +6,12 @@ class Topic(models.Model):
         return self.name
 
 
-class feedback(models.Model):
+class Feedback(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     rating = models.IntegerField(default=50, validators=[MinValueValidator(1),MaxValueValidator(5)])
     good = models.TextField(max_length=2000,blank=True )
     bad = models.TextField(max_length=2000,blank=True )
+    ideas = models.TextField(max_length=2000,blank=True )
     date =models.DateTimeField(auto_now_add=True)
     def _str_(self):
         return f"{self.date}"
