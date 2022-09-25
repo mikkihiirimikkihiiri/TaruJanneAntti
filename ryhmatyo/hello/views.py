@@ -16,7 +16,7 @@ class IndexView(ListView):
     def get_queryset(self):
         return Message.objects.order_by('-date')[:10]
 class MessageCreateView(CreateView):
-    model=Message
+    model = Message
     fields = ['message_text']
     template_name = "hello/add_page.html"
     succes_url = reverse_lazy('hello:index')

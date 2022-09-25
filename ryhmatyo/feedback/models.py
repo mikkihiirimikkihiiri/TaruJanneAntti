@@ -6,9 +6,18 @@ class Topic(models.Model):
         return self.name
 
 
+
 class Feedback(models.Model):
+    RATING_CHOICES = (
+        
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        )
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=50, validators=[MinValueValidator(1),MaxValueValidator(5)])
+    rating = models.IntegerField(default=1, choices=RATING_CHOICES)
     good = models.TextField(max_length=2000,blank=True )
     bad = models.TextField(max_length=2000,blank=True )
     ideas = models.TextField(max_length=2000,blank=True )

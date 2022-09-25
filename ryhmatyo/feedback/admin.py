@@ -9,5 +9,5 @@ class FeedbackAdmin(admin.ModelAdmin):
     search_fields=['good','bad']
 
 # Register your models here.
-admin.site.register(Topic)
+admin.site.register(Topic,TopicAdmin)
 admin.site.register(Feedback,FeedbackAdmin)
