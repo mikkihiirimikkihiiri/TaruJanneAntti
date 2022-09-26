@@ -1,9 +1,12 @@
 from django.db import models
-from django.core.validators import MaxValueValidator,MinValueValidator
+
 class Topic(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=160)
+   
     def _str_(self):
         return self.name
+    
+
 
 
 
