@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings
 
 class Topic(models.Model):
     name = models.CharField(max_length=160)
@@ -10,6 +12,7 @@ class Topic(models.Model):
 
 
 class Feedback(models.Model):
+    author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     RATING_CHOICES = (
         
         (1, '1'),
@@ -24,6 +27,7 @@ class Feedback(models.Model):
     bad = models.TextField(max_length=2000,blank=True )
     ideas = models.TextField(max_length=2000,blank=True )
     date =models.DateTimeField(auto_now_add=True)
+    
     def _str_(self):
         return f"{self.date}"
 
