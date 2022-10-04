@@ -1,18 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-
-from django.db.models import Avg
-
+from django.db.models import Count
 
 
-    
+
+
+
 
 
 
 
 class Feedback(models.Model):
-    author = models.ForeignKey(User, null=True,on_delete=models.CASCADE)
+    author = models.ForeignKey(User, null=True,blank=True,on_delete=models.CASCADE)
     RATING_CHOICES = (
         
         (1, '1'),
@@ -29,15 +29,28 @@ class Feedback(models.Model):
     date =models.DateTimeField(auto_now_add=True)
    
     class meta:
-        unique_together = [['author', 'topic']]
+       unique_together = [['author', 'topic']]
     def _str_(self):
-        return f"{self.date}"
+        return f"{self.rating}"
 
 class Topic(models.Model):
-    avg =str(Feedback.objects.aggregate(Avg('rating')))
-    name = models.CharField(max_length=160)
-    def __str__(self):
+   
+   name = models.CharField(max_length=160)
+   def __str__(self):
         return str(self.name)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   

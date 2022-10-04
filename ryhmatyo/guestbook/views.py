@@ -1,3 +1,5 @@
+from pydoc_data.topics import topics
+from unicodedata import name
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
@@ -6,7 +8,13 @@ from django.views.generic.edit import BaseFormView, CreateView
 #from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
+from django.db.models import Count,Avg
+
+from feedback.models import Feedback
+from feedback.models import Topic
 from .models import Post
+from django.db.models import Sum
+
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -29,10 +37,60 @@ class PostView(LoginRequiredMixin, CreateView):
         super().form_valid(form)
         return HttpResponseRedirect(self.get_success_url())
 
-def index(request):
-    posts = Post.objects.all().order_by('-date')
-    context = {"posts": posts}
+def index1(request):
+    posts = Feedback.objects.select_related('topic').filter(rating=1)
+    posts1 = Feedback.objects.select_related('topic').filter(rating=2)
+    posts2 = Feedback.objects.select_related('topic').filter(rating=3)
+    posts3 = Feedback.objects.select_related('topic').filter(rating=4)
+    posts4 = Feedback.objects.select_related('topic').filter(rating=5)
+    posts6 = Topic.objects.all()
+    for i in posts6:
+        a=i.name
+        print(a)
+    print(posts6)
+    b=[]
+    for i in posts:
+        a={i.rating,i.topic.name}
+        print(a)
+        b.append(a)
+    for i in posts1:
+        a={i.rating,i.topic.name}
+        print(a)
+        b.append(a)
+    for i in posts2:
+        a={i.rating,i.topic.name}
+        print(a)
+        b.append(a)
+    for i in posts3:
+        a={i.rating,i.topic.name}
+        print(a)
+        b.append(a)
+    for i in posts4:
+        a={i.rating,i.topic.name}
+        print(a)
+        b.append(a)
+   
+    context = {"posts":b 
+    }
+
     return render(request, 'guestbook/index.html', context)
 
 
 # Create your views here.
+def index(request):
+    questions = Topic.objects.annotate(number_of_answers=Sum('feedback__rating'))
+    ratin_sum = Topic.objects.annotate(number_of_answers1=Count('feedback'))
+    
+    e=0
+    v=[]
+    while e<len(questions):
+        
+        v.append({questions[e].name,questions[e].number_of_answers/ratin_sum[e].number_of_answers1})
+        e=e+1
+    #q=Feedback.objects.values('topic').annotate(average_rating=Avg('author__feedback'))
+    #a= Feedback.objects.aggregate(Sum('rating'))
+    #print(a)
+    #questions= Feedback.objects.annotate(avg_rating=Avg('topic__feedback')).order_by('-avg_rating')
+    return render(request,'guestbook/index.html', {
+            'v':v})
+    

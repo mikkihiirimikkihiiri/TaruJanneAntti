@@ -23,7 +23,7 @@ from django.views.generic.edit import CreateView
 class FeedbackCreateView(LoginRequiredMixin, CreateView):
     fields = ['topic','rating','good','bad','ideas']
     login_url = '/login/'
-  
+    
     model = Feedback
     template_name = 'feedback/index.html'
     succes_url = reverse_lazy('feedback:index')
