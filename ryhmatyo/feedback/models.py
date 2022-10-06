@@ -28,11 +28,11 @@ class Feedback(models.Model):
     ideas = models.TextField(max_length=2000,blank=True )
     date =models.DateTimeField(auto_now_add=True)
    
-    class meta:
-       unique_together = [['author', 'topic']]
-    def _str_(self):
-        return f"{self.rating}"
-
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['author', 'topic'], name='antti')
+        ]
+    
 class Topic(models.Model):
    
    name = models.CharField(max_length=160)
