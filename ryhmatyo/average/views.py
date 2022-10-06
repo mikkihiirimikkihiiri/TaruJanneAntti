@@ -1,13 +1,3 @@
-from django.shortcuts import render
-from django.views.generic.edit import CreateView
-from .models import Feedback
-from django.urls.base import reverse_lazy
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from django.views.generic.edit import CreateView
 from pydoc_data.topics import topics
 from unicodedata import name
 from django.shortcuts import render
@@ -22,30 +12,36 @@ from django.db.models import Count,Avg
 
 from feedback.models import Feedback
 from feedback.models import Topic
-
+from .models import Post
 from django.db.models import Sum
 
 
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['comment']
+        widgets = {
+            'comment': forms.Textarea
+        }
 
-
-
-
-class FeedbackCreateView(LoginRequiredMixin, CreateView):
-    fields = ['topic','rating','good','bad','ideas']
+class PostView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
-    
-    model = Feedback
-    template_name = 'feedback/index.html'
-    succes_url = reverse_lazy('feedback:index')
+    form_class = PostForm
+    model = Post
+    template_name = 'average/post.html'
     #fields = ['comment']
-   
+    success_url = reverse_lazy('average:index')
     def form_valid(self, form):
         # Set the form's author to the submitter if the form is valid
         form.instance.author = self.request.user
         super().form_valid(form)
         return HttpResponseRedirect(self.get_success_url())
 
-def index1(request):
+
+
+
+# Create your views here.
+def index(request):
     questions = Topic.objects.annotate(number_of_answers=Sum('feedback__rating'))
     ratin_sum = Topic.objects.annotate(number_of_answers1=Count('feedback'))
     
@@ -63,7 +59,6 @@ def index1(request):
     #a= Feedback.objects.aggregate(Sum('rating'))
     #print(a)
     #questions= Feedback.objects.annotate(avg_rating=Avg('topic__feedback')).order_by('-avg_rating')
-    return render(request,'feedback/index1.html', {
+    return render(request,'average/index.html', {
             'v':v})
-    
     

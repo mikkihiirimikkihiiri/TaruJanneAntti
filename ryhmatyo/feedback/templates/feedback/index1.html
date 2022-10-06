@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>averages</h2>
+{% if v  %}
+    <ul>
+        <li>
+            {% for question in v  %}
+                {{question}}
+                
+              
+           
+                
+            {%endfor%}
+        
+             
+        </li>   
+    </ul>
+{% else %}
+<p> No message</p>
+{%endif %}
+
+  
+{% endblock %}
