@@ -48,9 +48,13 @@ def index(request):
     e=0
     v=[]
     while e<len(questions):
+        if(ratin_sum[e].number_of_answers1==0):
+            v.append({questions[e].name,0})
+            e=e+1
+        else:
         
-        v.append({questions[e].name,questions[e].number_of_answers/ratin_sum[e].number_of_answers1})
-        e=e+1
+            v.append({questions[e].name,questions[e].number_of_answers/ratin_sum[e].number_of_answers1})
+            e=e+1
     #q=Feedback.objects.values('topic').annotate(average_rating=Avg('author__feedback'))
     #a= Feedback.objects.aggregate(Sum('rating'))
     #print(a)
