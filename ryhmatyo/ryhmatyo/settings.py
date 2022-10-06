@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'guestbook.apps.GuestbookConfig',
     'account.apps.AccountConfig',
     'feedback.apps.FeedbackConfig',
-    'hello.apps.HelloConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

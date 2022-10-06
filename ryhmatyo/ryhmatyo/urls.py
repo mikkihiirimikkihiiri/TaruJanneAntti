@@ -29,7 +29,7 @@ urlpatterns = [
 
 
     
-    path('hello/', include('hello.urls')),
+   
     path('feedback/', include('feedback.urls')),
     path('admin/', admin.site.urls),
 ]
