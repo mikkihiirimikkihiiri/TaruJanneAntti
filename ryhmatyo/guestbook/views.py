@@ -37,43 +37,7 @@ class PostView(LoginRequiredMixin, CreateView):
         super().form_valid(form)
         return HttpResponseRedirect(self.get_success_url())
 
-def index1(request):
-    posts = Feedback.objects.select_related('topic').filter(rating=1)
-    posts1 = Feedback.objects.select_related('topic').filter(rating=2)
-    posts2 = Feedback.objects.select_related('topic').filter(rating=3)
-    posts3 = Feedback.objects.select_related('topic').filter(rating=4)
-    posts4 = Feedback.objects.select_related('topic').filter(rating=5)
-    posts6 = Topic.objects.all()
-    for i in posts6:
-        a=i.name
-        print(a)
-    print(posts6)
-    b=[]
-    for i in posts:
-        a={i.rating,i.topic.name}
-        print(a)
-        b.append(a)
-    for i in posts1:
-        a={i.rating,i.topic.name}
-        print(a)
-        b.append(a)
-    for i in posts2:
-        a={i.rating,i.topic.name}
-        print(a)
-        b.append(a)
-    for i in posts3:
-        a={i.rating,i.topic.name}
-        print(a)
-        b.append(a)
-    for i in posts4:
-        a={i.rating,i.topic.name}
-        print(a)
-        b.append(a)
-   
-    context = {"posts":b 
-    }
 
-    return render(request, 'guestbook/index.html', context)
 
 
 # Create your views here.

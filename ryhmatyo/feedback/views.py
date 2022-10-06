@@ -13,12 +13,6 @@ from django.views.generic.edit import CreateView
 
 
 
-#class FeedbackCreateView(CreateView):
-   # model=Feedback
-    
-    #fields = ['author','topic','rating','good','bad','ideas']
-    #template_name = "feedback/index.html"
-    #succes_url = reverse_lazy('feedback:index')
 
 class FeedbackCreateView(LoginRequiredMixin, CreateView):
     fields = ['topic','rating','good','bad','ideas']
