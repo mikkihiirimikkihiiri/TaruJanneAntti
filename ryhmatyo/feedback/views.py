@@ -3,22 +3,17 @@ from django.views.generic.edit import CreateView
 from .models import Feedback
 from django.urls.base import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.views.generic.edit import CreateView
-from pydoc_data.topics import topics
-from unicodedata import name
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls.base import reverse_lazy
-from django.views.generic.edit import BaseFormView, CreateView
+from django.views.generic.edit import CreateView
 #from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django import forms
-from django.db.models import Count,Avg
+from django.db.models import Count
 
 from feedback.models import Feedback
 from feedback.models import Topic
